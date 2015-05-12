@@ -1,0 +1,15 @@
+// Default.sublime-keymap
+[
+  { "keys": ["ctrl+shift+h"],
+    "command": "insert_snippet",
+    "args": {
+      "contents": "${0}"
+    }
+  },
+  { "keys": ["ctrl+shift+d"],
+    "command": "wp_localize",
+    "args": {
+      "contents": "${0}"
+    }
+  }
+]
