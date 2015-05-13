@@ -11,5 +11,17 @@
     "args": {
       "contents": "${0}"
     }
+  },
+  { "keys": ["ctrl+shift+e"],
+    "command": "wp_localize_and_escape_html",
+    "args": {
+      "contents": "${0}"
+    }
+  },
+  { "keys": ["ctrl+shift+a"],
+    "command": "wp_localize_and_escape_attr",
+    "args": {
+      "contents": "${0}"
+    }
   }
 ]
