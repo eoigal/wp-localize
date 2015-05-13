@@ -3,7 +3,21 @@ Sublime Text plugin that localizes a selected string using the WordPress i18n tr
 
 This plugin will parse a string of selected text and work out what i18n method to encase the string in.
 
-The plugin makes one main assumption that if the text is encased in single or double quotes - it assumes it's a string being used in php code and as such we don't want to echo or print the string
+The plugin has one main assumption; if the selected text is encased in single or double quotes, its assumed the string is used in php code and as such we don't want to echo or print the string
+
+Also, this plugin does not handle every i18n method, just the following most common methods;
+
+* __()
+* _e()
+* esc_html__()
+* esc_html_e()
+* esc_attr__()
+* esc_attr_e()
+
+Not supported
+
+* _n() Plurals
+* _x() Context
 
 <h1>Typical Uses</h1>
 
