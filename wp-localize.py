@@ -51,7 +51,8 @@ class WpLocalizeBase(sublime_plugin.TextCommand):
 			url_args = "'%s'" % "', '".join( urls )
 			for url in urls:
 				find = 'href="%s"' % url
-				replace = 'href="%s"' % ( '%%%ds' % i  )
+				replace = 'href="%s"' % ( '%%%d\$s' % i  )
+				logging.warning( replace )
 				selected_text = selected_text.replace( find, replace )
 				i += 1
 			replacement = "printf( __( '%s' ), %s )" % ( selected_text.replace( "'", "\\'" ), url_args )

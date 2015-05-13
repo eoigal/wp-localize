@@ -80,7 +80,7 @@ Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a
 `ctrl + shift + d` will become...
 
 ```
-<?php printf( __( 'Follow the <a href="%1s">yellow</a> <a href="%2s">brick</a> <a href="%3s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
+<?php printf( __( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
 ```
 
 <b>Text in quotes with URLs</b>
@@ -91,7 +91,7 @@ Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a
 `ctrl + shift + d` will become...
 
 ```
-sprintf( __( 'Follow the <a href="%1s">yellow</a> <a href="%2s">brick</a> <a href="%3s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
+sprintf( __( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
 ```
 
 <b>Text with URLs and escaping</b>
@@ -102,7 +102,7 @@ Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a
 `ctrl + shift + e` will become...
 
 ```
-<?php printf( esc_html__( 'Follow the <a href="%1s">yellow</a> <a href="%2s">brick</a> <a href="%3s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
+<?php printf( esc_html__( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
 ```
 
 <b>Text in quotes with URLs and escaping</b>
@@ -113,7 +113,7 @@ Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a
 `ctrl + shift + e` will become...
 
 ```
-sprintf( esc_html__( 'Follow the <a href="%1s">yellow</a> <a href="%2s">brick</a> <a href="%3s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
+sprintf( esc_html__( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
 ```
 
 <b>Text with URLs and attribute escaping</b>
@@ -121,10 +121,10 @@ sprintf( esc_html__( 'Follow the <a href="%1s">yellow</a> <a href="%2s">brick</a
 Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a> <a href="http://roads.ie">road</a>
 ```
 
-`ctrl + shift + e` will become...
+`ctrl + shift + a` will become...
 
 ```
-<?php printf( esc_attr__( 'Follow the <a href="%1s">yellow</a> <a href="%2s">brick</a> <a href="%3s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
+<?php printf( esc_attr__( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
 ```
 
 <b>Text in quotes with URLs and attribute escaping</b>
@@ -132,8 +132,8 @@ Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a
 'Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a> <a href="http://roads.ie">road</a>'
 ```
 
-`ctrl + shift + e` will become...
+`ctrl + shift + a` will become...
 
 ```
-sprintf( esc_attr__( 'Follow the <a href="%1s">yellow</a> <a href="%2s">brick</a> <a href="%3s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
+sprintf( esc_attr__( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
 ```
