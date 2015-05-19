@@ -1,5 +1,5 @@
 from HTMLParser import HTMLParser
-import sublime, sublime_plugin, re, logging
+import sublime, sublime_plugin, re, collections, logging
 
 class WpLocalizeBase(sublime_plugin.TextCommand):
 
@@ -32,6 +32,13 @@ class WpLocalizeBase(sublime_plugin.TextCommand):
 				args['contents'] = replacement
 	       		self.view.run_command('insert_snippet', args)
 
+	def is_number(self, s):
+	    try:
+	        float( s )
+	        return True
+	    except ValueError:
+	        return False
+
 	def get_replacement_string( self, selected_text ):
 		p = MyParser()
 		p.feed(selected_text)
@@ -41,12 +48,24 @@ class WpLocalizeBase(sublime_plugin.TextCommand):
 			replace = r'%s="%s"' % ( key, value )
 			selected_text = re.sub( rgx, replace, selected_text );
 
-		urls = p.output_list 
-		if not urls:
+		settings    = sublime.load_settings('wp-localize.sublime-settings');
+		text_domain = settings.get('text_domain');
+		ending      = ')'
+		if ( text_domain ):
+			ending = ", '%s' )" % text_domain
+
+		#find any numbers in text
+		rgx = re.compile("(\d[\d,. ]+)")
+		numbers = rgx.findall(selected_text)
+		numbers = set( numbers )
+		urls    = set( p.output_list )
+		
+		if not urls and not numbers:
 			#just reg string
-			replacement = "_e( '%s' )" % selected_text.replace( "'", "\\'" )
-		else:
+			replacement = "_e( '%s' %s" % ( selected_text.replace( "'", "\\'" ).replace( "$", "\$" ), ending )
+		elif urls and not numbers:
 			#has urls - need to strip them out and replace with placeholders
+			urls = set( urls )
 			i = 1
 			url_args = "'%s'" % "', '".join( urls )
 			for url in urls:
@@ -54,7 +73,53 @@ class WpLocalizeBase(sublime_plugin.TextCommand):
 				replace = 'href="%s"' % ( '%%%d\$s' % i  )
 				selected_text = selected_text.replace( find, replace )
 				i += 1
-			replacement = "printf( __( '%s' ), %s )" % ( selected_text.replace( "'", "\\'" ), url_args )
+			replacement = "printf( __( '%s' %s, %s )" % ( selected_text.replace( "'", "\\'" ).replace( "$", "\$" ), ending, url_args )
+		else:
+			#has urls and numbers- need to strip them out and replace with placeholders
+			positions = {}
+
+			#need to find position of urls and numbers, then need to sort args for the printf
+			for number in numbers:
+				if self.is_number( number.replace( ',', '' ) ):
+					if number.find( ',' ) != -1: 
+						t = 'string'
+					elif number.find( '.' ) != -1: 
+						t = 'float'
+					else:
+						t = 'number'
+
+					pos = selected_text.index( number )
+					positions[ pos ] = { 'type': t, 'value': number, 'find': number, 'replace': '' }
+
+			for url in urls:
+				find    = u'href="%s"' % url
+				replace = u'href="%%%d$s"'
+				positions[selected_text.index( find ) ] = { 'type': 'url', 'value': url, 'find': find, 'replace' : replace }
+
+			i = 0
+			url_args = ''
+
+			for key in sorted( positions ):
+				find = positions[key].get( 'find' )
+
+				i += 1
+
+				if ( positions[key].get( 'type' ) == 'url' ):
+					replace = positions[key].get( 'replace' ) % i
+					url_args += "'%s', " % str( positions[key].get( 'value' ) )
+				elif ( positions[key].get( 'type' ) == 'float' ):
+					replace = '%%%d$f ' % i
+					url_args += positions[key].get( 'value' ) + ", "
+				elif ( positions[key].get( 'type' ) == 'string' ):
+					replace = '%%%d$s ' % i
+					url_args += "number_format_i18n('%s'), " % str( positions[key].get( 'value' ).replace( ',', '' ).replace( ' ', '' ) )
+				elif ( positions[key].get( 'type' ) == 'number' ):
+					replace = '%%%d$d ' % i
+					url_args += "%d, " % int( positions[key].get( 'value' ) )
+
+				selected_text = selected_text.replace( find, replace )
+
+			replacement = "printf( __( '%s' %s, %s )" % ( selected_text.replace( "'", "\\'" ).replace( "$", "\$" ), ending, url_args[:-2] )
 
 		return replacement
 
