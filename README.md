@@ -26,128 +26,58 @@ Not supported
 Follow the yellow brick road
 ```
 
-`ctrl + shift + d` will become...
-
 ```
-<?php _e( 'Follow the yellow brick road' ); ?>
+<!-- ctrl + shift + d to localize string -->
+<?php _e( 'Follow the yellow brick road' , 'some-text-domain' ); ?>
+<!-- ctrl + shift + e to html escape -->
+<?php esc_html_e( 'Follow the yellow brick road' , 'some-text-domain' ); ?>
+<!-- ctrl + shift + a to attribute escape -->
+<?php esc_html_attr( 'Follow the yellow brick road' , 'some-text-domain' ); ?>
 ```
 
-<b>Normal text in quotes</b>
+<b>Normal text surrounded with QUOTES</b>
 ```
 'Follow the yellow brick road'
 ```
 
-`ctrl + shift + d` will become...
-
 ```
-__( 'Follow the yellow brick road' )
-```
-
-<b>Normal text with escape</b>
-```
-Follow the yellow brick road
+<!-- ctrl + shift + d to localize string -->
+__( 'Follow the yellow brick road' , 'some-text-domain' )
+<!-- ctrl + shift + e to html escape -->
+esc_html__( 'Follow the yellow brick road' , 'some-text-domain' )
+<!-- ctrl + shift + d to attribute escape -->
+esc_attr__( 'Follow the yellow brick road' , 'some-text-domain' )
 ```
 
-`ctrl + shift + e` will become...
-
+<b>Text with URLs and Numbers</b>
 ```
-<?php esc_html_e( 'Follow the yellow brick road' ); ?>
-```
-
-<b>Normal text in quotes with escape</b>
-```
-'Follow the yellow brick road'
+I'd like 19,876.23 <a href="http://dictionary.com">words</a> in 100 to <a href="#type=sentence">5,000 sentences</a>
 ```
 
-`ctrl + shift + e` will become...
-
 ```
-esc_html__( 'Follow the yellow brick road' )
-```
-<b>Normal text with attribute escape</b>
-```
-Follow the yellow brick road
-```
-
-`ctrl + shift + a` will become...
-
-```
-<?php esc_attr_e( 'Follow the yellow brick road' ); ?>
+<!-- ctrl + shift + d to localize string -->
+<?php printf( __( 'I\'d like %1$s <a href="%2$s">words</a> in %3$d to <a href="%4$s">%5$s sentences</a>' , 'some-text-domain' ), number_format_i18n('19876.23'), 'http://dictionary.com', 100, '#type=sentence', number_format_i18n('5000') ); ?>
+<!-- ctrl + shift + e to html escape -->
+<?php printf( esc_html__( 'I\'d like %1$s <a href="%2$s">words</a> in %3$d to <a href="%4$s">%5$s sentences</a>' , 'some-text-domain' ), number_format_i18n('19876.23'), 'http://dictionary.com', 100, '#type=sentence', number_format_i18n('5000') ); ?>
+<!-- ctrl + shift + a to attribute escape -->
+<?php printf( esc_attr__( 'I\'d like %1$s <a href="%2$s">words</a> in %3$d to <a href="%4$s">%5$s sentences</a>' , 'some-text-domain' ), number_format_i18n('19876.23'), 'http://dictionary.com', 100, '#type=sentence', number_format_i18n('5000') ); ?>
 ```
 
-<b>Normal text in quotes with attribute escape</b>
+<b>Text with URLs and Numbers surrounded with QUOTES</b>
 ```
-'Follow the yellow brick road'
-```
-
-`ctrl + shift + e` will become...
-
-```
-esc_attr__( 'Follow the yellow brick road' )
+'I'd like 19,876.23 <a href="http://dictionary.com">words</a> in 100 to <a href="#type=sentence">5,000 sentences</a>'
 ```
 
-<b>Text with URLs</b>
 ```
-Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a> <a href="http://roads.ie">road</a>
-```
-
-`ctrl + shift + d` will become...
-
-```
-<?php printf( __( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
+<!-- ctrl + shift + d to localize string -->
+sprintf( __( 'I\'d like %1$s <a href="%2$s">words</a> in %3$d to <a href="%4$s">%5$s sentences</a>' , 'some-text-domain' ), number_format_i18n('19876.23'), 'http://dictionary.com', 100, '#type=sentence', number_format_i18n('5000') )
+<!-- ctrl + shift + e to html escape -->
+sprintf( esc_html__( 'I\'d like %1$s <a href="%2$s">words</a> in %3$d to <a href="%4$s">%5$s sentences</a>' , 'some-text-domain' ), number_format_i18n('19876.23'), 'http://dictionary.com', 100, '#type=sentence', number_format_i18n('5000') )
+<!-- ctrl + shift + d to attribute escape -->
+sprintf( esc_attr__( 'I\'d like %1$s <a href="%2$s">words</a> in %3$d to <a href="%4$s">%5$s sentences</a>' , 'some-text-domain' ), number_format_i18n('19876.23'), 'http://dictionary.com', 100, '#type=sentence', number_format_i18n('5000') )
 ```
 
-<b>Text in quotes with URLs</b>
-```
-'Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a> <a href="http://roads.ie">road</a>'
-```
-
-`ctrl + shift + d` will become...
-
-```
-sprintf( __( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
-```
-
-<b>Text with URLs and escaping</b>
-```
-Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a> <a href="http://roads.ie">road</a>
-```
-
-`ctrl + shift + e` will become...
-
-```
-<?php printf( esc_html__( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
-```
-
-<b>Text in quotes with URLs and escaping</b>
-```
-'Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a> <a href="http://roads.ie">road</a>'
-```
-
-`ctrl + shift + e` will become...
-
-```
-sprintf( esc_html__( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
-```
-
-<b>Text with URLs and attribute escaping</b>
-```
-Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a> <a href="http://roads.ie">road</a>
-```
-
-`ctrl + shift + a` will become...
-
-```
-<?php printf( esc_attr__( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' ); ?>
-```
-
-<b>Text in quotes with URLs and attribute escaping</b>
-```
-'Follow the <a href="http://yellow.com">yellow</a> <a href="#type=brick">brick</a> <a href="http://roads.ie">road</a>'
-```
-
-`ctrl + shift + a` will become...
-
-```
-sprintf( esc_attr__( 'Follow the <a href="%1$s">yellow</a> <a href="%2$s">brick</a> <a href="%3$s">road</a>' ), 'http://yellow.com', '#type=brick', 'http://roads.ie' )
-```
+<h3>Setup</h3>
+* Copy the plugin folder to your Sublime Text Packages folder
+* Copy the key bindings to the Sublime Text Default Key Bindings - User
+* Update the text domain to whatever slug your theme/plugin uses - leave blank to not include text domain argument in i18n methods
